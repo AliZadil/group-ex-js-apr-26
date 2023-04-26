@@ -20,3 +20,42 @@ function getMin(arr) {
   let sorted = arr.sort((a, b) => a - b)
   return sorted[0]
 }
+
+class Process{
+  static toJson(arg){
+    return JSON.stringify(arg);
+  }
+  static fromJson(arg){
+    return JSON.parse(arg);
+  }
+}
+
+function func1 (arr, cb){
+  cb(Process.toJson(arr));
+}
+
+function printer(jsonString){
+  console.log(Process.fromJson(jsonString));
+}
+
+func1(dataArr, printer);
+
+function doublePrinter(jsonString){
+  console.log(Process.fromJson(jsonString).map(e => 2*e));
+}
+
+func1(dataArr, doublePrinter);
+
+function evenPrinter(jsonString){
+  console.log(Process.fromJson(jsonString).filter(e => e % 2 === 0));
+}
+
+func1(dataArr, evenPrinter);
+
+function func2(arr, cb){
+  setTimeout(()=>{
+    cb(Process.toJson(arr))
+  }, 2000)
+}
+
+func2(dataArr, printer);
